@@ -31,6 +31,7 @@
 		if(coverings.amount >= 3)
 			if(do_after_once(user, 3 SECONDS, TRUE, src, TRUE, FALSE))
 				on_cover()
+				qdel(used)
 		else
 			to_chat(user, SPAN_WARNING("You need at least 3 sheets of cloth to cover this!"))
 		return ITEM_INTERACT_COMPLETE
@@ -54,10 +55,11 @@
 	icon_state = "covered"
 	STOP_PROCESSING(SSprocessing, src)
 
-/// This proc triggers when the art has been uncovered by sheets, becomming active again
+/// This proc triggers when the art has been uncovered by sheets, becoming active again
 /obj/structure/unsealed_art/proc/on_uncover()
 	covered = FALSE
 	icon_state = initial(icon_state)
+	new /obj/item/stack/sheet/cloth(loc, 3)
 	START_PROCESSING(SSprocessing, src)
 
 // MARK: Beauty
